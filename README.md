@@ -22,3 +22,5 @@ npm i
 npm start
 
 ```
+
+[[Watch the video]](https://drive.google.com/file/d/1XtIFl5v2JCdNvzsFzzw-8tyira_0nxwq/view?usp=sharing)
