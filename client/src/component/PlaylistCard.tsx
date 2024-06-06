@@ -16,12 +16,14 @@ interface PlaylistCardProps {
   playlist: any;
   onEdit: (playlist: any) => void;
   onDelete: () => void;
+  fetchPlaylists: () => void;
 }
 
 const PlaylistCard: React.FC<PlaylistCardProps> = ({
   playlist,
   onEdit,
   onDelete,
+  fetchPlaylists,
 }) => {
   const handleDeleteSong = async (songId: string) => {
     try {
@@ -30,6 +32,7 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({
         ...playlist,
         songs: playlist.songs.filter((song: any) => song.id !== songId),
       });
+      await fetchPlaylists();
     } catch (error) {
       console.error(error);
     }
@@ -58,7 +61,7 @@ const PlaylistCard: React.FC<PlaylistCardProps> = ({
           ))}
         </List>
         <Button onClick={onEdit} variant="contained" color="primary">
-          Edit
+          Manage Playlist
         </Button>
         <Button onClick={onDelete} variant="contained" color="secondary">
           Delete

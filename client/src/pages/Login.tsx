@@ -3,10 +3,9 @@ import { login } from "../services/authServices";
 import { Button, IconButton, Link, Snackbar, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Close } from "@mui/icons-material";
-import { AxiosError } from "axios";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [open, setOpen] = React.useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -16,7 +15,7 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const data = await login(email, password);
+      const data = await login(username, password);
       localStorage.setItem("token", data.token);
       //   navigate("/", { replace: true });
       window.location.href = "/";
@@ -50,9 +49,9 @@ const Login = () => {
   return (
     <form onSubmit={handleSubmit}>
       <TextField
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        label="Email"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        label="username"
         variant="outlined"
         fullWidth
         margin="normal"

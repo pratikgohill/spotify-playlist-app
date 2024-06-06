@@ -8,6 +8,7 @@ import {
 } from "../services/playlistService";
 import PlaylistCard from "./PlaylistCard";
 import PlaylistForm from "./PlaylistForm";
+import { Alert } from "@mui/material";
 
 const Dashboard = () => {
   const [searchResults, setSearchResults] = useState<any[]>([]);
@@ -36,22 +37,27 @@ const Dashboard = () => {
       );
     }
   };
-  console.log("playlists: ", playlists);
+  console.log("playlists: ", playlists, selectedPlaylist);
 
   const handleDelete = async (id: string) => {
     await deletePlaylist(id);
-    setPlaylists(playlists.filter((p) => p._id !== id));
+    await fetchPlaylists();
   };
 
   return (
     <div>
       <h2>My Playlists</h2>
+      <Alert severity="info">
+        Click on manage playlist after creating it to add songs
+      </Alert>
+
       {playlists.map((playlist) => (
         <PlaylistCard
           key={playlist._id}
           playlist={playlist}
           onEdit={() => setSelectedPlaylist(playlist)}
           onDelete={() => handleDelete(playlist._id)}
+          fetchPlaylists={fetchPlaylists}
         />
       ))}
       <br />
@@ -63,13 +69,16 @@ const Dashboard = () => {
           setSelectedPlaylist(null);
         }}
       />
-      <hr />
-      <br />
-      <SearchBar onResults={setSearchResults} />
-      <hr />
-      <br />
-
-      <SearchResults results={searchResults} onAdd={handleAddSong} />
+      {selectedPlaylist ? (
+        <>
+          <hr />
+          <h2>Search Songs</h2>
+          <SearchBar onResults={setSearchResults} />
+          <hr />
+          <br />
+          <SearchResults results={searchResults} onAdd={handleAddSong} />
+        </>
+      ) : null}
     </div>
   );
 };

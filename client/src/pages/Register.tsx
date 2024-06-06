@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Close } from "@mui/icons-material";
 
 const Register = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [open, setOpen] = React.useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -15,7 +15,7 @@ const Register = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await register(email, password);
+      await register(username, password);
       navigate("/login");
     } catch (error: any) {
       setOpen(true);
@@ -54,9 +54,9 @@ const Register = () => {
   return (
     <form onSubmit={handleSubmit}>
       <TextField
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        label="Email"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        label="username"
         variant="outlined"
         fullWidth
         margin="normal"
